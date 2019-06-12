@@ -21,5 +21,19 @@ router.post('/register', (req, res) => {
     })
 });
 
+function makeToken(user) {
+    const payload = {
+        subject: user.id,
+        username: user.username,
+        department: user.department
+    }
+    const options = {
+        expiresIn: '1d'
+    }
+
+    return jwt.sign(payload, secrets.jwtSecret, options)
+}
+
+
 module.exports = router;
 
